@@ -46,7 +46,7 @@ struct nthread_cpp_init_2
 
 void __cdecl nthread_init_mutex()
 {
-	InitializeCriticalSection(&sgMemCrit);
+	// InitializeCriticalSection(&sgMemCrit);
 }
 
 void __cdecl nthread_cleanup_mutex_atexit()
@@ -56,7 +56,7 @@ void __cdecl nthread_cleanup_mutex_atexit()
 
 void __cdecl nthread_cleanup_mutex()
 {
-	DeleteCriticalSection(&sgMemCrit);
+	// DeleteCriticalSection(&sgMemCrit);
 }
 
 void __fastcall nthread_terminate_game(char *pszFcn)
@@ -227,7 +227,7 @@ void __fastcall nthread_start(bool set_turn_upper_bit)
 	if ( (unsigned char)gbMaxPlayers > 1u )
 	{
 		sgbThreadIsRunning = 0;
-		EnterCriticalSection(&sgMemCrit);
+		// EnterCriticalSection(&sgMemCrit);
 		byte_679734 = 1;
 		sghThread = (HANDLE)_beginthreadex(NULL, 0, nthread_handler, NULL, 0, &glpNThreadId);
 		if ( sghThread == (HANDLE)-1 )
@@ -261,7 +261,7 @@ unsigned int __stdcall nthread_handler(void *a1)
 	{
 		while ( 1 )
 		{
-			EnterCriticalSection(&sgMemCrit);
+			// EnterCriticalSection(&sgMemCrit);
 			if ( !byte_679734 )
 				break;
 			nthread_send_and_recv_turn(0, 0);
@@ -269,13 +269,13 @@ unsigned int __stdcall nthread_handler(void *a1)
 				v1 = dword_679764 - GetTickCount();
 			else
 				v1 = 50;
-			LeaveCriticalSection(&sgMemCrit);
+			// LeaveCriticalSection(&sgMemCrit);
 			if ( v1 > 0 )
 				Sleep(v1);
 			if ( !byte_679734 )
 				return 0;
 		}
-		LeaveCriticalSection(&sgMemCrit);
+		// LeaveCriticalSection(&sgMemCrit);
 	}
 	return 0;
 }
@@ -292,8 +292,8 @@ void __cdecl nthread_cleanup()
 	gdwLargestMsgSize = 0;
 	if ( sghThread != (HANDLE)-1 && glpNThreadId != GetCurrentThreadId() )
 	{
-		if ( !sgbThreadIsRunning )
-			LeaveCriticalSection(&sgMemCrit);
+		// if ( !sgbThreadIsRunning )
+		// 	LeaveCriticalSection(&sgMemCrit);
 		if ( WaitForSingleObject(sghThread, 0xFFFFFFFF) == -1 )
 		{
 			v0 = GetLastErr();
@@ -316,10 +316,10 @@ void __fastcall nthread_ignore_mutex(bool bStart)
 	v1 = bStart;
 	if ( sghThread != (HANDLE)-1 )
 	{
-		if ( bStart )
-			LeaveCriticalSection(&sgMemCrit);
-		else
-			EnterCriticalSection(&sgMemCrit);
+		// if ( bStart )
+		// 	LeaveCriticalSection(&sgMemCrit);
+		// else
+		// 	EnterCriticalSection(&sgMemCrit);
 		sgbThreadIsRunning = v1;
 	}
 }

@@ -38,7 +38,7 @@ struct dx_cpp_init_2
 
 void __cdecl dx_init_mutex()
 {
-	InitializeCriticalSection(&sgMemCrit);
+	// InitializeCriticalSection(&sgMemCrit);
 }
 
 void __cdecl dx_cleanup_mutex_atexit()
@@ -48,7 +48,7 @@ void __cdecl dx_cleanup_mutex_atexit()
 
 void __cdecl dx_cleanup_mutex()
 {
-	DeleteCriticalSection(&sgMemCrit);
+	// DeleteCriticalSection(&sgMemCrit);
 }
 
 void __fastcall dx_init(HWND hWnd)
@@ -190,7 +190,7 @@ void __cdecl dx_lock_mutex()
 	int v1; // eax
 	DDSURFACEDESC v2; // [esp+0h] [ebp-6Ch]
 
-	EnterCriticalSection(&sgMemCrit);
+	// EnterCriticalSection(&sgMemCrit);
 	v0 = (Screen *)sgpBackBuf;
 	if ( sgpBackBuf )
 		goto LABEL_8;
@@ -236,7 +236,7 @@ void __cdecl dx_unlock_mutex()
 				DDErrDlg(v1, 273, "C:\\Src\\Diablo\\Source\\dx.cpp");
 		}
 	}
-	LeaveCriticalSection(&sgMemCrit);
+	// LeaveCriticalSection(&sgMemCrit);
 }
 // 69CF0C: using guessed type int screen_buf_end;
 
@@ -247,7 +247,7 @@ void __cdecl dx_cleanup()
 	if ( ghMainWnd )
 		ShowWindow(ghMainWnd, SW_HIDE);
 	SDrawDestroy();
-	EnterCriticalSection(&sgMemCrit);
+	// EnterCriticalSection(&sgMemCrit);
 	if ( sgpBackBuf )
 	{
 		v0 = sgpBackBuf;
@@ -261,7 +261,7 @@ void __cdecl dx_cleanup()
 	}
 	sgdwLockCount = 0;
 	gpBuffer = 0;
-	LeaveCriticalSection(&sgMemCrit);
+	// LeaveCriticalSection(&sgMemCrit);
 	if ( lpDDSPrimary )
 	{
 		lpDDSPrimary->Release();
@@ -283,7 +283,7 @@ void __cdecl dx_reinit()
 {
 	int v0; // esi
 
-	EnterCriticalSection(&sgMemCrit);
+	// EnterCriticalSection(&sgMemCrit);
 	ClearCursor();
 	v0 = sgdwLockCount;
 	while ( sgdwLockCount )
@@ -293,6 +293,6 @@ void __cdecl dx_reinit()
 	dx_init(ghMainWnd);
 	for ( ; v0; --v0 )
 		dx_lock_mutex();
-	LeaveCriticalSection(&sgMemCrit);
+	// LeaveCriticalSection(&sgMemCrit);
 }
 // 52571C: using guessed type int drawpanflag;

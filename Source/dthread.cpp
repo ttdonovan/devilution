@@ -35,7 +35,7 @@ struct dthread_cpp_init_2
 
 void __cdecl dthread_init_mutex()
 {
-	InitializeCriticalSection(&sgMemCrit);
+	// InitializeCriticalSection(&sgMemCrit);
 }
 
 void __cdecl dthread_cleanup_mutex_atexit()
@@ -45,7 +45,7 @@ void __cdecl dthread_cleanup_mutex_atexit()
 
 void __cdecl dthread_cleanup_mutex()
 {
-	DeleteCriticalSection(&sgMemCrit);
+	// DeleteCriticalSection(&sgMemCrit);
 }
 
 void __fastcall dthread_remove_player(int pnum)
@@ -54,13 +54,13 @@ void __fastcall dthread_remove_player(int pnum)
 	TMegaPkt *i; // eax
 
 	v1 = pnum;
-	EnterCriticalSection(&sgMemCrit);
+	// EnterCriticalSection(&sgMemCrit);
 	for ( i = sgpInfoHead; i; i = i->pNext )
 	{
 		if ( i->dwSpaceLeft == v1 )
 			i->dwSpaceLeft = 4;
 	}
-	LeaveCriticalSection(&sgMemCrit);
+	// LeaveCriticalSection(&sgMemCrit);
 }
 
 void __fastcall dthread_send_delta(int pnum, int cmd, void *pbSrc, int dwLen)
@@ -83,7 +83,7 @@ void __fastcall dthread_send_delta(int pnum, int cmd, void *pbSrc, int dwLen)
 		v5->data[0] = v4;
 		*(_DWORD *)&v5->data[4] = dwLen;
 		memcpy(&v5->data[8], pbSrc, dwLen);
-		EnterCriticalSection(&sgMemCrit);
+		// EnterCriticalSection(&sgMemCrit);
 		v7 = sgpInfoHead;
 		v8 = &sgpInfoHead;
 		while ( v7 )
@@ -93,7 +93,7 @@ void __fastcall dthread_send_delta(int pnum, int cmd, void *pbSrc, int dwLen)
 		}
 		*v8 = v6;
 		SetEvent(sghWorkToDoEvent);
-		LeaveCriticalSection(&sgMemCrit);
+		// LeaveCriticalSection(&sgMemCrit);
 	}
 }
 // 679660: using guessed type char gbMaxPlayers;
@@ -137,13 +137,13 @@ unsigned int __stdcall dthread_handler(void *a1)
 			v1 = GetLastErr();
 			TermMsg("dthread4:\n%s", v1);
 		}
-		EnterCriticalSection(&sgMemCrit);
+		// EnterCriticalSection(&sgMemCrit);
 		v2 = sgpInfoHead;
 		if ( sgpInfoHead )
 			sgpInfoHead = sgpInfoHead->pNext;
 		else
 			ResetEvent(sghWorkToDoEvent);
-		LeaveCriticalSection(&sgMemCrit);
+		// LeaveCriticalSection(&sgMemCrit);
 		if ( v2 )
 		{
 			v3 = v2->dwSpaceLeft;

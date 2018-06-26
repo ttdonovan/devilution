@@ -1890,7 +1890,7 @@ struct engine_cpp_init_2
 
 void __cdecl mem_init_mutex()
 {
-	InitializeCriticalSection(&sgMemCrit);
+	// InitializeCriticalSection(&sgMemCrit);
 }
 
 void __cdecl mem_atexit_mutex()
@@ -1900,7 +1900,7 @@ void __cdecl mem_atexit_mutex()
 
 void __cdecl mem_free_mutex()
 {
-	DeleteCriticalSection(&sgMemCrit);
+	// DeleteCriticalSection(&sgMemCrit);
 }
 
 void *__fastcall DiabloAllocPtr(int dwBytes)
@@ -1910,9 +1910,9 @@ void *__fastcall DiabloAllocPtr(int dwBytes)
 	int v3; // eax
 
 	v1 = dwBytes;
-	EnterCriticalSection(&sgMemCrit);
+	// EnterCriticalSection(&sgMemCrit);
 	v2 = SMemAlloc(v1, "C:\\Src\\Diablo\\Source\\ENGINE.CPP", 2236, 0);
-	LeaveCriticalSection(&sgMemCrit);
+	// LeaveCriticalSection(&sgMemCrit);
 	if ( !v2 )
 	{
 		v3 = GetLastError();
@@ -1928,9 +1928,9 @@ void __fastcall mem_free_dbg(void *ptr)
 	v1 = ptr;
 	if ( ptr )
 	{
-		EnterCriticalSection(&sgMemCrit);
+		// EnterCriticalSection(&sgMemCrit);
 		SMemFree(v1, "C:\\Src\\Diablo\\Source\\ENGINE.CPP", 2317, 0);
-		LeaveCriticalSection(&sgMemCrit);
+		// LeaveCriticalSection(&sgMemCrit);
 	}
 }
 

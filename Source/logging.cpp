@@ -37,7 +37,7 @@ struct log_cpp_init_2
 
 void __cdecl log_init_mutex()
 {
-	InitializeCriticalSection(&sgMemCrit);
+	// InitializeCriticalSection(&sgMemCrit);
 }
 
 void __cdecl j_log_cleanup_mutex()
@@ -47,7 +47,7 @@ void __cdecl j_log_cleanup_mutex()
 
 void __cdecl log_cleanup_mutex()
 {
-	DeleteCriticalSection(&sgMemCrit);
+	// DeleteCriticalSection(&sgMemCrit);
 }
 
 void __cdecl log_flush(bool force_close)
@@ -55,7 +55,7 @@ void __cdecl log_flush(bool force_close)
 	void *v1; // eax
 	DWORD NumberOfBytesWritten; // [esp+8h] [ebp-4h]
 
-	EnterCriticalSection(&sgMemCrit);
+	// EnterCriticalSection(&sgMemCrit);
 	if ( nNumberOfBytesToWrite )
 	{
 		if ( log_file == (HANDLE)-1 )
@@ -77,7 +77,7 @@ void __cdecl log_flush(bool force_close)
 		CloseHandle(log_file);
 		log_file = (HANDLE)-1;
 	}
-	LeaveCriticalSection(&sgMemCrit);
+	// LeaveCriticalSection(&sgMemCrit);
 }
 
 void *__cdecl log_create()
@@ -176,7 +176,7 @@ void log_printf(char *pszFmt, ...)
 	va_list va; // [esp+218h] [ebp+Ch]
 
 	va_start(va, pszFmt);
-	EnterCriticalSection(&sgMemCrit);
+	// EnterCriticalSection(&sgMemCrit);
 	_vsnprintf(v3, 0x200u, pszFmt, va);
 	v3[511] = 0;
 	v1 = strlen(v3);
@@ -191,7 +191,7 @@ void log_printf(char *pszFmt, ...)
 		memcpy(&v2[nNumberOfBytesToWrite], v3, v1);
 		nNumberOfBytesToWrite += v1;
 	}
-	LeaveCriticalSection(&sgMemCrit);
+	// LeaveCriticalSection(&sgMemCrit);
 }
 
 void __cdecl log_dump_computer_info()
